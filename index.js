@@ -27,10 +27,13 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * The variables inside of counter1 are function scoped  while there are some global variables outside of counter 2.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * counter 1 uses a closure because there is a parent and child function nested.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * counter1 code would be preferable if you were invoking the function more than one time and wanted it to store it. Counter 2 would be preferable if you needed to access/change the count variable.
  *
 */
 
