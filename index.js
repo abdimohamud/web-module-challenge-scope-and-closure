@@ -27,10 +27,13 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * The variables inside of counter1 are function scoped  while there are some global variables outside of counter 2.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * counter 1 uses a closure because there is a parent and child function nested.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
+ * counter1 code would be preferable if you were invoking the function more than one time and wanted it to store it. Counter 2 would be preferable if you needed to access/change the count variable.
  *
 */
 
@@ -55,41 +58,36 @@ function counter2() {
 /* Task 2: inning() 
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
-
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+const inning = function(){
+  return Math.floor(Math.random() * 3)
 }
-
 /* Task 3: finalScore()
-
+/* Task 3: finalScore()
 Write a higher order function called `finalScore` that accepts the callback function `inning` (from above) and a number of innings and and returns the final score of the game in the form of an object.
-
 For example, 
-
 finalScore(inning, 9) might return: 
 {
   "Home": 11,
   "Away": 5,
 }
-
 */ 
-
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
-
+const finalScore = function(func,num){
+  let score = {
+    "Home": 0,
+    "Away":0
+  }
+  for (let i = 0; i < num; i++){
+    score.Home += func()
+    score.Away += func()
+  }
+  return score
 }
-
+console.log(finalScore(inning,9))
 /* Task 4: 
-
 Create a function called `scoreboard` that accepts the following parameters: 
-
 (1) Callback function `getInningScore`
 (2) Callback function `inning`
 (3) A number of innings
-
 and returns the score at each pont in the game, like so:
 1st inning: awayTeam - homeTeam
 2nd inning: awayTeam - homeTeam
@@ -101,10 +99,17 @@ and returns the score at each pont in the game, like so:
 8th inning: awayTeam - homeTeam
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
-
-
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(funcInning,funcScore,num) {
+  let total = {
+    "Home":0,
+    "Away":0
+  }
+  for(let i = 1; i <= num;i++){
+    let score = funcScore(funcInning,1)
+    total.Home += score.Home;
+    total.Away += score.Away;
+    console.log(`Inning ${i}: Home Score = ${score.Home} Away Score is ${score.Away}`)
+  }
+  return `Final Score: Home = ${total.Home} Away = ${total.Away}`
 }
-
-
+console.log(scoreboard(inning,finalScore,9))
